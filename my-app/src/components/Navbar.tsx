@@ -19,6 +19,9 @@ export default function Navbar() {
   const hiddenPaths = ['/solve', '/login', '/register'];
   if (hiddenPaths.includes(location.pathname)) return null;
 
+  // Helper to check if a path is active
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <nav className="navbar">
       <div className="navbar-inner">
@@ -28,9 +31,9 @@ export default function Navbar() {
         {user ? (
           <>
             <div className="navbar-links navbar-desktop">
-              <Link to="/solve" className="nav-solve-btn">Solve</Link>
-              <Link to="/outline" className="nav-outline-btn">Course Outline</Link>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/solve" className={`nav-solve-btn${isActive('/solve') ? ' active' : ''}`}>Solve</Link>
+              <Link to="/outline" className={`nav-outline-btn${isActive('/outline') ? ' active' : ''}`}>Course Outline</Link>
+              <Link to="/dashboard" className={isActive('/dashboard') ? 'active' : ''}>Dashboard</Link>
               <button onClick={logout}>Logout</button>
               <Link to="/dashboard" className="nav-user-badge">
                 <span className="nav-avatar">
@@ -51,8 +54,8 @@ export default function Navbar() {
           </>
         ) : (
           <div className="navbar-links navbar-desktop">
-            <Link to="/login">Login</Link>
-            <Link to="/register" className="nav-cta">Get Started</Link>
+            <Link to="/login" className={isActive('/login') ? 'active' : ''}>Login</Link>
+            <Link to="/register" className={`nav-cta${isActive('/register') ? ' active' : ''}`}>Get Started</Link>
           </div>
         )}
       </div>
@@ -74,15 +77,15 @@ export default function Navbar() {
               </div>
             </div>
             <div className="drawer-divider" />
-            <Link to="/solve" className="drawer-link drawer-link-primary" onClick={() => setMenuOpen(false)}>
+            <Link to="/solve" className={`drawer-link drawer-link-primary${isActive('/solve') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
               Solve
             </Link>
-            <Link to="/outline" className="drawer-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/outline" className={`drawer-link${isActive('/outline') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               Course Outline
             </Link>
-            <Link to="/dashboard" className="drawer-link" onClick={() => setMenuOpen(false)}>
+            <Link to="/dashboard" className={`drawer-link${isActive('/dashboard') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
               Dashboard
             </Link>
@@ -94,8 +97,8 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link to="/login" className="drawer-link" onClick={() => setMenuOpen(false)}>Login</Link>
-            <Link to="/register" className="drawer-link drawer-link-primary" onClick={() => setMenuOpen(false)}>Get Started</Link>
+            <Link to="/login" className={`drawer-link${isActive('/login') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Login</Link>
+            <Link to="/register" className={`drawer-link drawer-link-primary${isActive('/register') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Get Started</Link>
           </>
         )}
       </div>

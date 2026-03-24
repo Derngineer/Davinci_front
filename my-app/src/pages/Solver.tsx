@@ -23,10 +23,14 @@ const DOCUMENT_TYPES = new Set([
 ]);
 
 function isDocumentFile(file: File): boolean {
+  // If it's an image, never treat as document
+  if (file.type.startsWith('image/')) return false;
+  // If MIME type is in document types, treat as document
   if (DOCUMENT_TYPES.has(file.type)) return true;
-  // fallback: check extension
+  // fallback: check extension, but only if not an image
   const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
-  return ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv'].includes(ext);
+  const docExts = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv'];
+  return docExts.includes(ext);
 }
 
 /* ── Crop helper: extract cropped region from image ──────── */
