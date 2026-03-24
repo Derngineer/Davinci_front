@@ -24,8 +24,11 @@ export default function Register() {
 
   // Fetch countries on mount
   useEffect(() => {
-    api.get<{ code: string; name: string }[]>('/accounts/countries/')
-      .then((res) => setCountries(res.data))
+    api.get('/accounts/countries/')
+      .then((res) => {
+        const data = res.data;
+        setCountries(Array.isArray(data) ? data : []);
+      })
       .catch(() => { /* silently fail — user can still type */ });
   }, []);
 
@@ -49,11 +52,13 @@ export default function Register() {
       setTimeout(() => navigate('/login'), 2500);
     } catch (err: unknown) {
       const data = (err as { response?: { data?: Record<string, unknown> } })?.response?.data;
-      if (data) {
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
         const messages = Object.values(data)
           .flat()
           .join(' ');
         setError(messages || 'Registration failed.');
+      } else if (typeof data === 'string') {
+        setError(data);
       } else {
         setError('Something went wrong. Please try again.');
       }
