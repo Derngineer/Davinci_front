@@ -1,0 +1,62 @@
+.footer {
+  background: var(--dv-dark);
+  color: rgba(255, 255, 255, 0.6);
+  padding: var(--sp-6) var(--sp-4);
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.footer-brand {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--dv-white);
+  font-size: 1.1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  transition: color var(--dur-fast);
+}
+
+.footer-links a:hover {
+  color: var(--dv-white, #ffffff);
+}
+
+.footer-copy {
+  width: 100%;
+  text-align: center;
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Override BrandLogo colours inside dark footer ──────── */
+.footer .brand-dark,
+.footer .brand-logo {
+  color: var(--dv-white, #ffffff);
+}
+
+.footer .brand-lambda {
+  color: var(--dv-white, #ffffff);
+}
+
+.footer .brand-solver {
+  color: rgba(255, 255, 255, 0.6);
+}

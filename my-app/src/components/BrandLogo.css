@@ -1,0 +1,31 @@
+/* ── Brand Logo ────────────────────────────────────────────── */
+.brand-logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  user-select: none;
+}
+
+.brand-dark {
+  color: var(--dv-dark, #1a1a1a);
+}
+
+.brand-lambda {
+  /* Match the cap-height of surrounding text */
+  height: 0.82em;
+  width: auto;
+  color: var(--dv-dark, #1a1a1a);
+  vertical-align: baseline;
+  margin: 0 -0.04em;          /* tighten kerning around the Λ */
+  position: relative;
+  top: 0.03em;                 /* nudge to sit on the baseline */
+}
+
+.brand-solver {
+  color: var(--dv-gray-500, #6b7280);
+  font-weight: 500;
+  margin-left: 0.15em;
+}

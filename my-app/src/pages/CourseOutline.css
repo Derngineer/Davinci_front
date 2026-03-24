@@ -1,0 +1,328 @@
+/* ── Course Outline Page ────────────────────────────────────── */
+.outline-page {
+  min-height: 100vh;
+  background: var(--dv-off-white);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Top bar ──────────────────────────────────────────────── */
+.outline-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--dv-white);
+  border-bottom: 1px solid var(--dv-gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.outline-brand {
+  text-decoration: none;
+}
+
+.outline-back {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--dv-gray-500);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--dur-fast, 0.15s);
+}
+.outline-back:hover {
+  color: var(--dv-blue);
+}
+
+/* ── Container ────────────────────────────────────────────── */
+.outline-container {
+  flex: 1;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4);
+}
+
+/* ── Form wrap ────────────────────────────────────────────── */
+.outline-form-wrap {
+  background: var(--dv-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--dv-gray-200);
+  padding: var(--sp-5);
+}
+
+.outline-form-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: var(--sp-4);
+}
+.outline-form-header svg {
+  color: var(--dv-blue);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.outline-form-header h1 {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--dv-gray-800);
+  margin: 0 0 4px;
+}
+.outline-form-header p {
+  font-size: 0.88rem;
+  color: var(--dv-gray-500);
+  margin: 0;
+}
+
+/* ── Error ────────────────────────────────────────────────── */
+.outline-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  padding: var(--sp-2) var(--sp-3);
+  font-size: 0.85rem;
+  margin-bottom: var(--sp-3);
+}
+
+/* ── Form fields ──────────────────────────────────────────── */
+.outline-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.outline-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+
+@media (max-width: 560px) {
+  .outline-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.outline-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.outline-field span {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dv-gray-600);
+}
+
+.outline-field input,
+.outline-field select,
+.outline-field textarea {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border: 1px solid var(--dv-gray-200);
+  border-radius: var(--radius-md);
+  background: var(--dv-gray-50);
+  color: var(--dv-gray-800);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.outline-field input:focus,
+.outline-field select:focus,
+.outline-field textarea:focus {
+  outline: none;
+  border-color: var(--dv-blue);
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+}
+
+.outline-field textarea {
+  resize: vertical;
+}
+
+/* ── Submit button ────────────────────────────────────────── */
+.outline-submit {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--dv-dark);
+  color: var(--dv-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.15s, opacity 0.15s;
+  margin-top: var(--sp-2);
+}
+.outline-submit:hover:not(:disabled) {
+  background: var(--dv-blue);
+}
+.outline-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.outline-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--dv-white);
+  border-radius: 50%;
+  animation: outlineSpin 0.7s linear infinite;
+}
+@keyframes outlineSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Result state ─────────────────────────────────────────── */
+.outline-result {
+  width: 100%;
+}
+
+.outline-result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.outline-result-meta h2 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dv-gray-800);
+  margin: 0 0 4px;
+}
+.outline-result-meta p {
+  font-size: 0.85rem;
+  color: var(--dv-gray-500);
+  margin: 0;
+}
+
+.outline-result-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.outline-btn {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+  border: none;
+}
+
+.outline-btn-pdf {
+  background: var(--dv-blue);
+  color: var(--dv-white);
+}
+.outline-btn-pdf:hover {
+  background: var(--dv-blue-dark);
+}
+
+.outline-btn-new {
+  background: var(--dv-gray-100);
+  color: var(--dv-gray-700);
+}
+.outline-btn-new:hover {
+  background: var(--dv-gray-200);
+}
+
+/* ── Outline table styling ────────────────────────────────── */
+.outline-table-wrap {
+  background: var(--dv-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--dv-gray-200);
+  padding: var(--sp-4);
+  overflow-x: auto;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ── Outline table body ───────────────────────────────────── */
+.outline-table-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  table-layout: fixed;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.outline-table-body thead th {
+  background: var(--dv-blue-light);
+  color: var(--dv-blue-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--dv-blue);
+  word-wrap: break-word;
+}
+
+.outline-table-body tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--dv-gray-200);
+  vertical-align: top;
+  color: var(--dv-gray-700);
+  line-height: 1.55;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.outline-table-body tbody tr:hover {
+  background: var(--dv-gray-50);
+}
+
+.outline-table-body input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--dv-blue);
+  cursor: pointer;
+}
+
+/* Checkbox column — keep narrow */
+.outline-table-body td:first-child,
+.outline-table-body th:first-child {
+  width: 36px;
+  text-align: center;
+  word-wrap: normal;
+}
+
+/* ── Animation ────────────────────────────────────────────── */
+.animate-fade-in-up {
+  animation: outlineFadeUp 0.45s ease both;
+}
+@keyframes outlineFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive: expand container for result ──────────────── */
+.outline-page:has(.outline-result) .outline-container {
+  max-width: 860px;
+}
