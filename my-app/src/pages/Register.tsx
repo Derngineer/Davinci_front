@@ -21,15 +21,32 @@ export default function Register() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [countriesLoading, setCountriesLoading] = useState(true);
 
-  // Fetch countries on mount
+  // Fetch countries on mount — retries if backend is waking up (Render free tier)
   useEffect(() => {
-    api.get('/accounts/countries/')
-      .then((res) => {
-        const data = res.data;
-        setCountries(Array.isArray(data) ? data : []);
-      })
-      .catch(() => { /* silently fail — user can still type */ });
+    let cancelled = false;
+    const fetchCountries = async (retries = 3, delay = 3000) => {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const res = await api.get('/accounts/countries/');
+          const data = res.data;
+          if (!cancelled && Array.isArray(data)) {
+            setCountries(data);
+            setCountriesLoading(false);
+            return;
+          }
+        } catch {
+          // wait before retrying — gives the backend time to spin up
+          if (i < retries - 1) {
+            await new Promise((r) => setTimeout(r, delay));
+          }
+        }
+      }
+      if (!cancelled) setCountriesLoading(false);
+    };
+    fetchCountries();
+    return () => { cancelled = true; };
   }, []);
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -167,8 +184,11 @@ export default function Register() {
                 value={form.country}
                 onChange={(e) => setForm((prev) => ({ ...prev, country: e.target.value }))}
                 required
+                disabled={countriesLoading}
               >
-                <option value="">Select your country</option>
+                <option value="">
+                  {countriesLoading ? 'Loading countries…' : 'Select your country'}
+                </option>
                 {countries.map((c) => (
                   <option key={c.code} value={c.code}>{c.name}</option>
                 ))}
