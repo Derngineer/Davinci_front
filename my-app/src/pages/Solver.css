@@ -117,10 +117,18 @@
   
     /* Mobile tweak: drop controls lower so upload button is tappable inside the camera view */
     @media (max-width: 480px) {
-      .solver-controls {
-        /* add extra bottom space (safe-area aware) to avoid overlap with the camera guide */
-        padding-bottom: calc(max(var(--sp-6, 24px), env(safe-area-inset-bottom, 24px)) + 44px);
-      }
+        .solver-controls {
+          /* add extra bottom space (safe-area aware) to avoid overlap with the camera guide */
+          padding-bottom: calc(max(var(--sp-6, 24px), env(safe-area-inset-bottom, 24px)) + 64px);
+        }
+
+        /* Ensure the upload label is clickable and appears above any camera overlays */
+        .upload-label {
+          position: relative;
+          z-index: 60; /* above solver-controls (10) and overlays */
+          pointer-events: auto;
+          margin-top: 6px;
+        }
     }
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
   display: flex;
