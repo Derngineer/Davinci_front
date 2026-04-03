@@ -18,10 +18,10 @@ export interface OutlineResponse {
 }
 
 /**
- * Generate a course outline checklist.
- * POST /api/outline-checklist/
+ * Generate a course outline.
+ * POST /api/course-outline/
  */
 export async function generateOutline(data: OutlineRequest): Promise<OutlineResponse> {
-  const res = await api.post('/outline-checklist/', data);
+  const res = await api.post('/course-outline/', data);
   return res.data;
 }

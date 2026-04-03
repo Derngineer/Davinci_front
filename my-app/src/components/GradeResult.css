@@ -1,0 +1,486 @@
+/* ══════════════════════════════════════════════════════════════
+   GradeResult — dark-mode grading report
+   All colours use inline dark tokens so this panel is always
+   dark regardless of the parent page theme.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Root container ─────────────────────────────────────────── */
+.gr-root {
+  font-family: 'Karla', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #0a0a0f;
+  color: #f0eff8;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 32px;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────── */
+.gr-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  position: sticky;
+  top: 0;
+  background: #0a0a0f;
+  z-index: 10;
+  border-bottom: 1px solid #1e1e2a;
+}
+
+.gr-topbar-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9b80ff;
+}
+
+.gr-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #1e1e2a;
+  background: #111118;
+  color: #5a596e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.gr-close-btn:hover {
+  border-color: #9b80ff;
+  color: #f0eff8;
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes grFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gr-anim      { animation: grFadeUp 0.45s ease both; }
+.gr-anim--d1  { animation-delay: 0.08s; }
+.gr-anim--d2  { animation-delay: 0.14s; }
+.gr-anim--d3  { animation-delay: 0.2s; }
+.gr-anim--d4  { animation-delay: 0.28s; }
+.gr-anim--d5  { animation-delay: 0.38s; }
+
+/* ── Hero score card ────────────────────────────────────────── */
+.gr-hero-card {
+  background: #111118;
+  border: 1px solid #1e1e2a;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 16px 16px 10px;
+}
+
+.gr-subject-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #9b80ff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.gr-score-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+/* ── Ring ────────────────────────────────────────────────────── */
+.gr-ring-wrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+}
+
+.gr-ring-svg {
+  transform: rotate(-90deg);
+}
+
+.gr-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.gr-ring-score {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f0eff8;
+  line-height: 1;
+}
+
+.gr-ring-max {
+  font-size: 0.8rem;
+  color: #5a596e;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.gr-ring-pct {
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-top: 4px;
+  line-height: 1;
+}
+
+/* ── Score meta ─────────────────────────────────────────────── */
+.gr-score-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.gr-boundary {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f0eff8;
+  margin-bottom: 6px;
+}
+
+.gr-summary {
+  font-size: 0.82rem;
+  color: #9998b0;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Estimated range strip ──────────────────────────────────── */
+.gr-range-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #0a0a0f;
+  border-radius: 10px;
+  font-size: 0.75rem;
+}
+
+.gr-range-label {
+  display: block;
+  color: #5a596e;
+}
+
+.gr-range-sub {
+  display: block;
+  font-size: 0.65rem;
+  color: #3a3a40;
+  margin-top: 2px;
+}
+
+.gr-range-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #10b981;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Priority chips ─────────────────────────────────────────── */
+.gr-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 16px;
+  margin-bottom: 10px;
+}
+
+.gr-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid #1e1e2a;
+  background: #111118;
+  color: #9998b0;
+}
+
+.gr-chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Section label ──────────────────────────────────────────── */
+.gr-section-label {
+  font-size: 0.68rem;
+  color: #3a3a40;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 16px;
+  margin-bottom: 8px;
+}
+
+/* ── Criteria list ──────────────────────────────────────────── */
+.gr-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+  margin-bottom: 14px;
+}
+
+/* ── Criterion card ─────────────────────────────────────────── */
+.gr-crit-card {
+  background: #111118;
+  border: 1px solid #1e1e2a;
+  border-left-width: 1px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  animation: grFadeUp 0.4s ease both;
+  padding: 12px 16px 12px;
+}
+
+.gr-crit-card--priority {
+  border-color: #ef4444;
+  border-left: 3px solid #ef4444;
+}
+
+.gr-crit-card:hover {
+  border-color: #2e2e3a;
+}
+
+.gr-crit-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gr-crit-code {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(124, 92, 252, 0.15);
+  color: #9b80ff;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gr-crit-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #f0eff8;
+  min-width: 0;
+}
+
+.gr-crit-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.gr-crit-chevron {
+  font-size: 1.1rem;
+  color: #5a596e;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.gr-crit-chevron.open {
+  transform: rotate(90deg);
+}
+
+/* ── Pip bar ────────────────────────────────────────────────── */
+.gr-pips {
+  display: flex;
+  gap: 3px;
+  margin-top: 8px;
+}
+
+.gr-pip {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+}
+
+/* ── Criterion expanded body ────────────────────────────────── */
+.gr-crit-body {
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 1px solid #1e1e2a;
+}
+
+.gr-crit-pageref {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #5a596e;
+  background: #1a1a24;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.gr-crit-feedback {
+  font-size: 0.82rem;
+  color: #9998b0;
+  line-height: 1.7;
+  margin: 0 0 10px;
+}
+
+.gr-crit-improve {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 2px solid;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.gr-crit-improve-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+
+/* ── Priority action list ───────────────────────────────────── */
+.gr-priorities {
+  background: #111118;
+  border: 1px solid #1e1e2a;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 0 16px 10px;
+}
+
+.gr-priorities-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f0eff8;
+  margin-bottom: 14px;
+}
+
+.gr-priority-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.gr-priority-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #7c5cfc;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.gr-priority-text {
+  font-size: 0.82rem;
+  color: #9998b0;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.gr-do-not-touch {
+  margin-top: 6px;
+  padding: 10px 14px;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #9998b0;
+  line-height: 1.65;
+}
+
+.gr-dnt-label {
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* ── Regrade note ───────────────────────────────────────────── */
+.gr-regrade-note {
+  margin: 0 16px 10px;
+  padding: 12px 16px;
+  background: #111118;
+  border: 1px solid #1e1e2a;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #5a596e;
+  line-height: 1.65;
+}
+
+.gr-regrade-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #3a3a40;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+}
+
+/* ── Grade another button ───────────────────────────────────── */
+.gr-another-btn {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  padding: 13px;
+  background: none;
+  border: 1px solid #1e1e2a;
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #9998b0;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.gr-another-btn:hover {
+  border-color: #7c5cfc;
+  color: #9b80ff;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .gr-score-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .gr-ring-wrap {
+    align-self: center;
+  }
+}

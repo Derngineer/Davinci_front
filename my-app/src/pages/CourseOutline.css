@@ -60,7 +60,7 @@
   margin-bottom: var(--sp-4);
 }
 .outline-form-header svg {
-  color: var(--dv-blue);
+  color: #7c3aed;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -75,6 +75,13 @@
   font-size: 0.88rem;
   color: var(--dv-gray-500);
   margin: 0;
+}
+
+/* ── Guest note ───────────────────────────────────────────── */
+.outline-guest-note {
+  font-weight: 600;
+  color: #7c3aed;
+  font-size: 0.82rem;
 }
 
 /* ── Error ────────────────────────────────────────────────── */
@@ -136,8 +143,8 @@
 .outline-field select:focus,
 .outline-field textarea:focus {
   outline: none;
-  border-color: var(--dv-blue);
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
 }
 
 .outline-field textarea {
@@ -163,7 +170,7 @@
   margin-top: var(--sp-2);
 }
 .outline-submit:hover:not(:disabled) {
-  background: var(--dv-blue);
+  background: linear-gradient(135deg, #7c3aed, #0d6efd);
 }
 .outline-submit:disabled {
   opacity: 0.7;
@@ -230,11 +237,12 @@
 }
 
 .outline-btn-pdf {
-  background: var(--dv-blue);
+  background: linear-gradient(135deg, #7c3aed, #0d6efd);
   color: var(--dv-white);
 }
 .outline-btn-pdf:hover {
-  background: var(--dv-blue-dark);
+  background: linear-gradient(135deg, #6d28d9, #0b5ed7);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
 }
 
 .outline-btn-new {
@@ -269,12 +277,12 @@
 }
 
 .outline-table-body thead th {
-  background: var(--dv-blue-light);
-  color: var(--dv-blue-dark);
+  background: rgba(124, 58, 237, 0.06);
+  color: #6d28d9;
   font-weight: 600;
   text-align: left;
   padding: 10px 12px;
-  border-bottom: 2px solid var(--dv-blue);
+  border-bottom: 2px solid #7c3aed;
   word-wrap: break-word;
 }
 

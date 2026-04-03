@@ -10,7 +10,10 @@
   --dv-blue-dark:   #0b5ed7;
   --dv-blue-light:  #e8f0fe;
   --dv-indigo:      #1d0a7f;
-  --dv-green:       #198754;
+  --dv-purple:      #7c3aed;
+  --dv-purple-light: rgba(124, 58, 237, 0.1);
+  --dv-green:       #10b981;
+  --dv-green-dark:  #059669;
   --dv-red:         #dc3545;
   --dv-gold:        #f5a623;
 

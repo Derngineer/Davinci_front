@@ -36,7 +36,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--dv-blue);
+  background: linear-gradient(135deg, #0d6efd, #7c3aed);
 }
 
 .solver-back {
@@ -257,7 +257,7 @@
   width: 48px;
   height: 48px;
   border: 3px solid rgba(255, 255, 255, 0.15);
-  border-top-color: var(--dv-blue);
+  border-top-color: #7c3aed;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -364,12 +364,13 @@
 }
 
 .preview-btn-primary {
-  background: var(--dv-blue);
+  background: linear-gradient(135deg, #0d6efd, #7c3aed);
   color: var(--dv-white);
 }
 
 .preview-btn-primary:hover {
-  background: var(--dv-blue-dark);
+  background: linear-gradient(135deg, #0b5ed7, #6d28d9);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
 }
 
 /* ── Crop stage ───────────────────────────────────────────── */
@@ -454,6 +455,18 @@
   animation: fadeInUp 0.3s var(--ease);
   max-width: 90%;
   text-align: center;
+}
+
+/* ── Guest badge ──────────────────────────────────────────── */
+.solver-guest-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--dv-blue);
+  background: rgba(13, 110, 253, 0.1);
+  border: 1px solid rgba(13, 110, 253, 0.2);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  white-space: nowrap;
 }
 
 /* ── Page loader ──────────────────────────────────────────── */

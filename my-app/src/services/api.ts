@@ -14,14 +14,15 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 globally — but skip auth pages (login/register handle their own errors)
+// Handle 401 globally — only redirect if the user WAS authenticated (had a token).
+// Guest requests (no token) returning 401 are expected and must NOT redirect.
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       const path = window.location.pathname;
-      // Don't hijack errors on login/register pages
-      if (path !== '/login' && path !== '/register') {
+      const token = localStorage.getItem('dv_token');
+      if (token && path !== '/login' && path !== '/register') {
         localStorage.removeItem('dv_token');
         window.location.href = '/login';
       }

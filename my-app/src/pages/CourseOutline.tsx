@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { generateOutline, type OutlineRequest, type OutlineResponse } from '../services/outline';
 import { downloadOutlinePdf } from '../utils/outlinePdf';
+import AuthPromptModal from '../components/AuthPromptModal';
+import { useAuth } from '../context/useAuth';
+import { useGuestQuery } from '../hooks/useGuestQuery';
 import './CourseOutline.css';
 
 const EXAM_BOARDS = [
@@ -9,6 +12,10 @@ const EXAM_BOARDS = [
 ];
 
 export default function CourseOutline() {
+  const { token } = useAuth();
+  const { canQuery, consumeQuery, remaining: guestRemaining } = useGuestQuery('outline');
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   const [form, setForm] = useState<OutlineRequest>({
     student_name: '',
     grade: '',
@@ -28,14 +35,21 @@ export default function CourseOutline() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Guest quota check
+    if (!token && !canQuery) {
+      setShowAuthModal(true);
+      return;
+    }
     setError('');
     setResult(null);
     setLoading(true);
     try {
       const data = await generateOutline(form);
+      if (!token) consumeQuery();
       setResult(data);
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Something went wrong';
+      const msg = (err as { response?: { data?: { detail?: string } } })
+        ?.response?.data?.detail || (err instanceof Error ? err.message : 'Something went wrong');
       setError(msg);
     } finally {
       setLoading(false);
@@ -52,11 +66,9 @@ export default function CourseOutline() {
     setError('');
   };
 
-  /* ── Render ── */
   return (
     <div className="outline-page">
       <div className="outline-container">
-        {/* ── Form state ── */}
         {!result && (
           <div className="outline-form-wrap animate-fade-in-up">
             <div className="outline-form-header">
@@ -66,7 +78,14 @@ export default function CourseOutline() {
               </svg>
               <div>
                 <h1>Course Outline Generator</h1>
-                <p>Get a structured, printable checklist for your entire course.</p>
+                <p>
+                  Get a structured, printable checklist for your entire course.
+                  {!token && (
+                    <span className="outline-guest-note">
+                      {' '}{guestRemaining} free {guestRemaining === 1 ? 'outline' : 'outlines'} remaining
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
 
@@ -136,7 +155,7 @@ export default function CourseOutline() {
                   value={form.course_content}
                   onChange={handleChange}
                   rows={3}
-                  placeholder="e.g. Mechanics, Waves, Electricity, Thermal Physics…, (highly recommended) copy all topics from Save My Exams or your syllabus if possible. A completely automated system is underway."
+                  placeholder="e.g. Mechanics, Waves, Electricity, Thermal Physics… copy topics from your syllabus for best results."
                 />
               </label>
 
@@ -154,7 +173,6 @@ export default function CourseOutline() {
           </div>
         )}
 
-        {/* ── Result state ── */}
         {result && (
           <div className="outline-result animate-fade-in-up">
             <div className="outline-result-header">
@@ -177,7 +195,6 @@ export default function CourseOutline() {
               </div>
             </div>
 
-            {/* The rendered HTML outline */}
             <div className="outline-table-wrap">
               <div
                 className="outline-table-body"
@@ -187,6 +204,10 @@ export default function CourseOutline() {
           </div>
         )}
       </div>
+
+      {showAuthModal && (
+        <AuthPromptModal feature="outline" onClose={() => setShowAuthModal(false)} />
+      )}
     </div>
   );
 }
