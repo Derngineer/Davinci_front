@@ -1,6 +1,8 @@
 import { useState, useEffect, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signup } from '../services/auth';
+import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
+import { signup, googleLogin } from '../services/auth';
+import { useAuth } from '../context/useAuth';
 import api from '../services/api';
 import BrandLogo from '../components/BrandLogo';
 import stockImg from '../assets/pexels-polina-tankilevitch-6929273.jpg';
@@ -8,6 +10,7 @@ import './Auth.css';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { loginWithToken } = useAuth();
 
   const [countries, setCountries] = useState<{ code: string; name: string }[]>([]);
   const [form, setForm] = useState({
@@ -79,6 +82,31 @@ export default function Register() {
       } else {
         setError('Something went wrong. Please try again.');
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ── Google OAuth callback ── */
+  const handleGoogleSuccess = async (res: CredentialResponse) => {
+    if (!res.credential) return;
+    setError('');
+    setLoading(true);
+
+    try {
+      const data = await googleLogin(res.credential);
+      loginWithToken(data.token, data.user);
+
+      if (data.is_new) {
+        navigate('/select-country', { replace: true });
+      } else {
+        navigate('/solve', { replace: true });
+      }
+    } catch (err: unknown) {
+      const msg =
+        (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+        || 'Google sign-up failed. Please try again.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -203,6 +231,23 @@ export default function Register() {
               {loading ? 'Creating account\u2026' : 'Create Account'}
             </button>
           </form>
+
+          {/* ── OR divider ── */}
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+
+          {/* ── Google Sign-Up ── */}
+          <div className="google-btn-wrap">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('Google sign-up was cancelled.')}
+              size="large"
+              width="400"
+              text="continue_with"
+              shape="pill"
+            />
+          </div>
         </div>
 
         <div className="auth-form-footer">

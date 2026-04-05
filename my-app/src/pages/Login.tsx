@@ -1,12 +1,14 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { useAuth } from '../context/useAuth';
+import { googleLogin } from '../services/auth';
 import BrandLogo from '../components/BrandLogo';
 import stockImg from '../assets/pexels-polina-tankilevitch-6929273.jpg';
 import './Auth.css';
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, loginWithToken } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +32,32 @@ export default function Login() {
       const msg =
         (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
         || 'Invalid email or password.';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ── Google OAuth callback ── */
+  const handleGoogleSuccess = async (res: CredentialResponse) => {
+    if (!res.credential) return;
+    setError('');
+    setLoading(true);
+
+    try {
+      const data = await googleLogin(res.credential);
+      loginWithToken(data.token, data.user);
+
+      // New Google user without country → country picker, otherwise dashboard/returnTo
+      if (data.is_new) {
+        navigate('/select-country', { replace: true });
+      } else {
+        navigate(returnTo, { replace: true });
+      }
+    } catch (err: unknown) {
+      const msg =
+        (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+        || 'Google sign-in failed. Please try again.';
       setError(msg);
     } finally {
       setLoading(false);
@@ -96,6 +124,23 @@ export default function Login() {
               {loading ? 'Signing in\u2026' : 'Continue'}
             </button>
           </form>
+
+          {/* ── OR divider ── */}
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+
+          {/* ── Google Sign-In ── */}
+          <div className="google-btn-wrap">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('Google sign-in was cancelled.')}
+              size="large"
+              width="400"
+              text="continue_with"
+              shape="pill"
+            />
+          </div>
         </div>
 
         <div className="auth-form-footer">

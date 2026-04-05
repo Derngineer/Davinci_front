@@ -1,14 +1,15 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { gradeUploadedImage, gradeDocument, type GradeData } from '../services/grader';
 import GradeResult from '../components/GradeResult';
-import BrandLogo from '../components/BrandLogo';
 import AuthPromptModal from '../components/AuthPromptModal';
 import { useAuth } from '../context/useAuth';
 import { useGuestQuery } from '../hooks/useGuestQuery';
 import './Grader.css';
 
 type Stage = 'upload' | 'processing' | 'result';
+
+const STORAGE_KEY = 'dv_grade_session';
 
 const DOCUMENT_TYPES = new Set([
   'application/pdf',
@@ -24,17 +25,39 @@ function isDocumentFile(file: File): boolean {
   return ['pdf', 'doc', 'docx', 'txt'].includes(ext);
 }
 
+/** Restore saved grading session from sessionStorage */
+function restoreSession(): { stage: Stage; gradeData: GradeData | null } {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return { stage: 'upload', gradeData: null };
+    const parsed = JSON.parse(raw);
+    if (parsed.stage === 'result' && parsed.gradeData) {
+      return { stage: 'result', gradeData: parsed.gradeData };
+    }
+  } catch { /* ignore corrupt data */ }
+  return { stage: 'upload', gradeData: null };
+}
+
 export default function Grader() {
   const { token } = useAuth();
   const { canQuery, consumeQuery, remaining: guestRemaining } = useGuestQuery('grade');
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const [stage,     setStage]     = useState<Stage>('upload');
-  const [gradeData, setGradeData] = useState<GradeData | null>(null);
+  const [stage,     setStage]     = useState<Stage>(() => restoreSession().stage);
+  const [gradeData, setGradeData] = useState<GradeData | null>(() => restoreSession().gradeData);
   const [error,     setError]     = useState('');
   const [dragOver,  setDragOver]  = useState(false);
   const [fileName,  setFileName]  = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Persist grading result to sessionStorage whenever it changes
+  useEffect(() => {
+    if (stage === 'result' && gradeData) {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ stage, gradeData }));
+    } else if (stage === 'upload') {
+      sessionStorage.removeItem(STORAGE_KEY);
+    }
+  }, [stage, gradeData]);
 
   function checkGuestQuota(): boolean {
     if (token) return true;
@@ -89,9 +112,7 @@ export default function Grader() {
 
       {/* Top bar */}
       <div className="grader-topbar">
-        <Link to="/" className="solver-brand" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-          <BrandLogo />
-        </Link>
+    
         <div className="grader-topbar-right">
           {!token && (
             <span className="grader-guest-badge">
@@ -106,10 +127,6 @@ export default function Grader() {
       {stage === 'upload' && (
         <div className="grader-upload-wrap">
           <div className="grader-upload-header">
-            <div className="grader-new-badge">
-              <span className="grader-new-dot" />
-              New — IB IA Grading
-            </div>
             <h1 className="grader-upload-title">Grade your work</h1>
             <p className="grader-upload-sub">
               Upload an essay, IB IA, lab report, assignment, or any document.

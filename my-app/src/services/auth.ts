@@ -56,3 +56,29 @@ export async function changePassword(old_password: string, new_password: string)
   const res = await api.post('/accounts/change-password/', { old_password, new_password });
   return res.data;
 }
+
+/* ── Google OAuth ─────────────────────────────────────────── */
+
+export interface GoogleLoginResponse {
+  token: string;
+  is_new: boolean;
+  user: UserProfile;
+}
+
+/** Send the Google credential JWT to the backend for auth */
+export async function googleLogin(credential: string): Promise<GoogleLoginResponse> {
+  const res = await api.post('/accounts/google/', { credential });
+  return res.data;
+}
+
+/** Fetch the list of countries (used by Register + SelectCountry) */
+export async function fetchCountries(): Promise<{ code: string; name: string }[]> {
+  const res = await api.get('/accounts/countries/');
+  return res.data;
+}
+
+/** Set the country for a Google-signup user missing one */
+export async function setCountry(country: string): Promise<{ user: UserProfile }> {
+  const res = await api.post('/accounts/set-country/', { country });
+  return res.data;
+}

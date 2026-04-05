@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import './Landing.css';
+import HowItWorks from '../components/HowItWorks';
+import IBGradingSection from '../components/IBGradingSection';
+import CourseOutlineSection from '../components/CourseOutlineSection';
 
 /* ── Feature SVGs ── */
 import solvingSvg from '../assets/solver.svg';
@@ -130,9 +133,17 @@ export default function Landing() {
               grading, or generate a full course outline — powered by AI, completely free.
             </p>
             <div className="hero-actions hero-actions--center">
-              <Link to="/solve" className="btn btn-dark btn-lg">
-                Try it free
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <Link to="/solve" className="mockup-card-btn mockup-card-btn--green">
+                Solve
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </Link>
+              <Link to="/grade" className="mockup-card-btn mockup-card-btn--purple">
+                Grade
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </Link>
+              <Link to="/outline" className="mockup-card-btn mockup-card-btn--blue">
+                Get Outline
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </Link>
             </div>
           </div>
@@ -204,32 +215,9 @@ export default function Landing() {
       </section>
 
 
-      {/* ══════════ HOW IT WORKS ══════════ */}
-      <section className="how-section">
-        <div className="container">
-          <h2 className="section-title">Homework solved in 3 taps</h2>
-          <p className="section-subtitle">No typing equations. No searching. Just point your phone and solve.</p>
-          <div className="steps-row">
-            <div className="step">
-              <div className="step-num">1</div>
-              <h3>Open Camera</h3>
-              <p>Launch DaVinci on your phone. The camera opens instantly ready to capture.</p>
-            </div>
-            <div className="step-divider" />
-            <div className="step">
-              <div className="step-num">2</div>
-              <h3>Snap the Problem</h3>
-              <p>Take a photo of any homework problem — handwritten or printed, any language.</p>
-            </div>
-            <div className="step-divider" />
-            <div className="step">
-              <div className="step-num">3</div>
-              <h3>Get the Solution</h3>
-              <p>AI reads the problem and delivers a detailed, step-by-step solution in seconds.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HowItWorks />
+      <IBGradingSection />
+      <CourseOutlineSection />
 
       {/* ══════════ EXAM BOARDS & CURRICULUMS ══════════ */}
       <section className="boards-section">

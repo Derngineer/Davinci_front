@@ -27,10 +27,10 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand"><BrandLogo /></Link>
 
-        {/* ── Nav links (always inline for guests, burger for logged-in on mobile) ── */}
-        {user ? (
-          <>
-            <div className="navbar-links navbar-desktop">
+        {/* ── Nav links ── */}
+        <div className="navbar-links navbar-desktop">
+          {user ? (
+            <>
               <Link to="/solve" className={`nav-solve-btn${isActive('/solve') ? ' active' : ''}`}>Solve</Link>
               <Link to="/outline" className={`nav-outline-btn${isActive('/outline') ? ' active' : ''}`}>Course Outline</Link>
               <Link to="/dashboard" className={isActive('/dashboard') ? 'active' : ''}>Dashboard</Link>
@@ -40,24 +40,24 @@ export default function Navbar() {
                   {user.first_name?.charAt(0).toUpperCase() || 'U'}
                 </span>
               </Link>
-            </div>
-            {/* Burger button only for logged-in users */}
-            <button
-              className={`burger-btn ${menuOpen ? 'open' : ''}`}
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Toggle navigation menu"
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-          </>
-        ) : (
-          <div className="navbar-links navbar-desktop">
-            <Link to="/login" className={isActive('/login') ? 'active' : ''}>Login</Link>
-            <Link to="/register" className={`nav-cta${isActive('/register') ? ' active' : ''}`}>Get Started</Link>
-          </div>
-        )}
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={isActive('/login') ? 'active' : ''}>Login</Link>
+              <Link to="/register" className={`nav-cta${isActive('/register') ? ' active' : ''}`}>Get Started</Link>
+            </>
+          )}
+        </div>
+        {/* Burger button — shown on mobile for all users */}
+        <button
+          className={`burger-btn ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle navigation menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
 
       {/* ── Mobile backdrop ── */}

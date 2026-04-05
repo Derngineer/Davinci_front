@@ -6,6 +6,7 @@
 
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { getQrBase64 } from './qrBase64';
 
 /* ── Types ─────────────────────────────────────────────────── */
 interface OutlinePdfData {
@@ -79,8 +80,9 @@ function parseHtmlTable(html: string): { headers: string[]; rows: string[][] } {
 
 /* ── Main ──────────────────────────────────────────────────── */
 
-export function downloadOutlinePdf(data: OutlinePdfData): void {
+export async function downloadOutlinePdf(data: OutlinePdfData): Promise<void> {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const qrBase64 = await getQrBase64();
   const W = doc.internal.pageSize.getWidth();   // 210
   const H = doc.internal.pageSize.getHeight();  // 297
   const ML = 14;
@@ -97,6 +99,10 @@ export function downloadOutlinePdf(data: OutlinePdfData): void {
   // Website URL — below brand name
   doc.setFont('helvetica', 'normal').setFontSize(7.5).setTextColor(MUTED);
   doc.text('www.davincisolver.com', ML, y + 4.5);
+
+  // QR code — top right
+  const qrSize = 18; // mm
+  doc.addImage(qrBase64, 'PNG', W - MR - qrSize, y - 6, qrSize, qrSize);
 
   /* ── Title — to the right of the brand ──────────────────── */
   const titleX = ML + 46;
@@ -219,11 +225,16 @@ export function downloadOutlinePdf(data: OutlinePdfData): void {
         doc.setDrawColor(NAVY).setLineWidth(0.3);
         doc.line(ML, fy, W - MR, fy);
 
-        // Footer text in brand blue
+        // QR code in footer — left side
+        const footerQr = 9; // mm
+        doc.addImage(qrBase64, 'PNG', ML, fy + 0.5, footerQr, footerQr);
+
+        // Footer text in brand blue — shifted right to make room for QR
+        const textStart = ML + footerQr + 2;
         doc.setFont('helvetica', 'bold').setFontSize(7).setTextColor(BLUE);
-        doc.text('DAVINCI', ML, fy + 4);
+        doc.text('DAVINCI', textStart, fy + 4);
         doc.setFont('helvetica', 'normal').setTextColor(MUTED);
-        doc.text(' \u2014 www.davincisolver.com', ML + doc.getTextWidth('DAVINCI') + 1, fy + 4);
+        doc.text(' \u2014 www.davincisolver.com', textStart + doc.getTextWidth('DAVINCI') + 1, fy + 4);
 
         // Page number right-aligned
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -29,6 +29,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(profile);
   };
 
+  /** Immediate login for flows that already have a token + profile (Google OAuth) */
+  const loginWithToken = (newToken: string, profile: UserProfile) => {
+    localStorage.setItem('dv_token', newToken);
+    setToken(newToken);
+    setUser(profile);
+  };
+
   const logout = async () => {
     try { await apiLogout(); } catch { /* ignore */ }
     localStorage.removeItem('dv_token');
@@ -42,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, refreshUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, loginWithToken, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

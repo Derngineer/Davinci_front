@@ -39,7 +39,8 @@ export async function gradeUploadedImage(file: File): Promise<GradeData> {
   const res = await api.post('/grade/', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
-  return res.data;
+  console.log('[grader] API response:', res.data);
+  return res.data.solution ?? res.data;
 }
 
 /**
@@ -52,5 +53,6 @@ export async function gradeDocument(file: File): Promise<GradeData> {
   const res = await api.post('/grade-document/', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
-  return res.data;
+  console.log('[grader] API response:', res.data);
+  return res.data.solution ?? res.data;
 }

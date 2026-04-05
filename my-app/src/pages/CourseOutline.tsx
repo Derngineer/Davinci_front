@@ -56,9 +56,9 @@ export default function CourseOutline() {
     }
   };
 
-  const handleDownloadPdf = () => {
+  const handleDownloadPdf = async () => {
     if (!result) return;
-    downloadOutlinePdf(result);
+    await downloadOutlinePdf(result);
   };
 
   const resetForm = () => {

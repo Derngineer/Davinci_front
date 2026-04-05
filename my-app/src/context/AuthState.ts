@@ -6,6 +6,7 @@ export interface AuthState {
   token: string | null;
   loading: boolean;
   login: (data: LoginData) => Promise<void>;
+  loginWithToken: (token: string, user: UserProfile) => void;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }

@@ -12,7 +12,7 @@
   color: var(--dv-dark);
   line-height: 1.15;
   text-align: center;
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-4);
   letter-spacing: -0.02em;
 }
 
@@ -22,7 +22,7 @@
   font-size: 1.05rem;
   line-height: 1.7;
   max-width: 560px;
-  margin: 0 auto var(--sp-8);
+  margin: 0 auto var(--sp-9);
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -302,6 +302,11 @@
   justify-content: center;
 }
 
+.hero-actions .mockup-card-btn {
+  padding: 11px 22px;
+  font-size: 0.88rem;
+}
+
 /* (hero-no-signup removed) */
 
 /* ══════════════════════════════════════════════════════════════
@@ -312,9 +317,9 @@
 .mockup-grid {
   display: flex;
   justify-content: center;
-  gap: 52px;
-  margin-top: var(--sp-4);
-  margin-bottom: var(--sp-3);
+  gap: 64px;
+  margin-top: var(--sp-6);
+  margin-bottom: var(--sp-5);
 }
 
 .mockup-item {
@@ -449,10 +454,12 @@
 
 @media (max-width: 480px) {
   .mockup-grid {
-    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
   .mockup-item {
-    width: calc(28vw);
+    width: min(72vw, 280px);
   }
 }
 
@@ -889,6 +896,16 @@
   }
 }
 
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+  .hero-desc {
+    font-size: 0.88rem;
+    max-width: 320px;
+  }
+}
+
 /* ── "Trusted by" label ── */
 .hero-trusted {
   text-align: center;
@@ -1019,7 +1036,7 @@
    HOW IT WORKS
    ══════════════════════════════════════════════════════════════ */
 .how-section {
-  padding: var(--sp-10) 0;
+  padding: 140px 0;
   background: var(--dv-gray-50);
 }
 
@@ -1034,7 +1051,7 @@
   text-align: center;
   flex: 1;
   max-width: 280px;
-  padding: var(--sp-5) var(--sp-4);
+  padding: var(--sp-6) var(--sp-5);
 }
 
 .step-num {
@@ -1089,14 +1106,14 @@
    EXAM BOARDS
    ══════════════════════════════════════════════════════════════ */
 .boards-section {
-  padding: var(--sp-10) 0;
+  padding: 140px 0;
   background: #fff;
 }
 
 .boards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-5);
+  gap: var(--sp-6);
 }
 
 .board-group {
@@ -1163,14 +1180,14 @@
    SUBJECTS
    ══════════════════════════════════════════════════════════════ */
 .subjects-section {
-  padding: var(--sp-10) 0;
+  padding: 140px 0;
   background: var(--dv-gray-50);
 }
 
 .subjects-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-3);
+  gap: var(--sp-4);
 }
 
 .subject-card {
@@ -1217,14 +1234,14 @@
    FEATURES
    ══════════════════════════════════════════════════════════════ */
 .features-section {
-  padding: var(--sp-10) 0;
+  padding: 140px 0;
   background: #fff;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-5);
+  gap: var(--sp-6);
 }
 
 .feature-card {
@@ -1276,14 +1293,14 @@
    TESTIMONIALS
    ══════════════════════════════════════════════════════════════ */
 .testimonials-section {
-  padding: var(--sp-10) 0;
+  padding: 140px 0;
   background: var(--dv-gray-50);
 }
 
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-5);
+  gap: var(--sp-6);
 }
 
 .testimonial-card {

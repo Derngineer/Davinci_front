@@ -274,7 +274,7 @@
 /* ── Result ──────────────────────────────────────────────────── */
 .grader-result-wrap {
   flex: 1;
-  background: #0a0a0f;
+  background: var(--dv-off-white);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
