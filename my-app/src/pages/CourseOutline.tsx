@@ -4,6 +4,7 @@ import { downloadOutlinePdf } from '../utils/outlinePdf';
 import AuthPromptModal from '../components/AuthPromptModal';
 import { useAuth } from '../context/useAuth';
 import { useGuestQuery } from '../hooks/useGuestQuery';
+import WaitingAnimation from '../components/WaitingAnimation';
 import './CourseOutline.css';
 
 const EXAM_BOARDS = [
@@ -69,7 +70,14 @@ export default function CourseOutline() {
   return (
     <div className="outline-page">
       <div className="outline-container">
-        {!result && (
+        {/* ── Loading animation ── */}
+        {loading && !result && (
+          <div className="outline-form-wrap animate-fade-in-up wa-inline">
+            <WaitingAnimation mode="outline" />
+          </div>
+        )}
+
+        {!result && !loading && (
           <div className="outline-form-wrap animate-fade-in-up">
             <div className="outline-form-header">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

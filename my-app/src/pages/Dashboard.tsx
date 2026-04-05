@@ -66,23 +66,50 @@ export default function Dashboard() {
         {/* Greeting */}
         <div className="dashboard-greeting">
           <h1>Hey, {user.first_name} 👋</h1>
-          <p>Ready to solve some problems today?</p>
+          <p>What would you like to do today?</p>
         </div>
 
-        {/* ── Hero: Open Solver ─────────────────────────────── */}
-        <Link to="/solve" className="solver-hero-card">
-          <div className="solver-hero-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-              <circle cx="12" cy="13" r="4"/>
-            </svg>
-          </div>
-          <div className="solver-hero-text">
-            <h2>Open Solver</h2>
-            <p>Snap a photo or upload a problem to get a step-by-step solution</p>
-          </div>
-          <svg className="solver-hero-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </Link>
+        {/* ── Feature action cards ─────────────────────────── */}
+        <div className="dash-actions-grid">
+          <Link to="/solve" className="dash-action-card dash-action--solve">
+            <div className="dash-action-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <h3>Solve</h3>
+            <p>Snap a photo or upload a problem for step-by-step solutions</p>
+            <span className="dash-action-arrow">→</span>
+          </Link>
+
+          <Link to="/grade" className="dash-action-card dash-action--grade">
+            <div className="dash-action-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <h3>Grade</h3>
+            <p>Upload essays, IAs, or assignments for detailed marking feedback</p>
+            <span className="dash-action-arrow">→</span>
+          </Link>
+
+          <Link to="/outline" className="dash-action-card dash-action--outline">
+            <div className="dash-action-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <h3>Course Outline</h3>
+            <p>Generate a full syllabus plan for any subject and exam board</p>
+            <span className="dash-action-arrow">→</span>
+          </Link>
+        </div>
 
         {/* Stats */}
         <div className="stats-grid">

@@ -306,8 +306,8 @@ export default function Landing() {
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon-wrap">&#129504;</div>
-              <h4>GPT-4 Powered AI</h4>
-              <p>The most advanced AI model reads your problems with OCR precision and solves with expert-level accuracy.</p>
+              <h4>Elite AI at Your Service</h4>
+              <p>We harness the most powerful AI models available to read your problems with OCR precision and solve with expert-level accuracy.</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon-wrap">&#128241;</div>
@@ -416,7 +416,7 @@ export default function Landing() {
                 <>
                   <Link to="/solve" className="btn btn-white">Try Solving Free</Link>
                   <Link to="/grade" className="btn btn-outline-white">Try Grading Free</Link>
-                  <Link to="/register" className="btn btn-outline-white">Create Account</Link>
+                  <Link to="/outline" className="btn btn-outline-white">Try Course Outline Free</Link>
                 </>
               )}
             </div>

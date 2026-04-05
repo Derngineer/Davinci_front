@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import iaGradingImg from '../assets/ia_grading.png';
+import iaGradingImg from '../assets/ia_grading.svg';
 import './IBGradingSection.css';
 
 export default function IBGradingSection() {

@@ -10,7 +10,7 @@ import './Auth.css';
 
 export default function Register() {
   const navigate = useNavigate();
-  const { loginWithToken } = useAuth();
+  const { login, loginWithToken } = useAuth();
 
   const [countries, setCountries] = useState<{ code: string; name: string }[]>([]);
   const [form, setForm] = useState({
@@ -68,8 +68,9 @@ export default function Register() {
     setLoading(true);
     try {
       await signup(form);
-      setSuccess('Account created! Redirecting to sign in\u2026');
-      setTimeout(() => navigate('/login'), 2500);
+      // Auto-login after successful signup, then go to dashboard
+      await login({ email: form.email, password: form.password });
+      navigate('/dashboard', { replace: true });
     } catch (err: unknown) {
       const data = (err as { response?: { data?: Record<string, unknown> } })?.response?.data;
       if (data && typeof data === 'object' && !Array.isArray(data)) {
@@ -100,7 +101,7 @@ export default function Register() {
       if (data.is_new) {
         navigate('/select-country', { replace: true });
       } else {
-        navigate('/solve', { replace: true });
+        navigate('/dashboard', { replace: true });
       }
     } catch (err: unknown) {
       const msg =

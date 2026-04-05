@@ -12,8 +12,8 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Where to go after login — default to /solve if no "from" state
-  const returnTo = (location.state as { from?: string })?.from || '/solve';
+  // Where to go after login — default to /dashboard if no "from" state
+  const returnTo = (location.state as { from?: string })?.from || '/dashboard';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

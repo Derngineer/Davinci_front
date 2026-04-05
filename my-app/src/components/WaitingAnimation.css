@@ -1,0 +1,171 @@
+/* ── WaitingAnimation ─────────────────────────────────────── */
+.wa-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  min-height: 340px;
+  position: relative;
+  overflow: hidden;
+  animation: wa-fade-in 0.5s ease both;
+}
+
+@keyframes wa-fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Pulsing gradient orb ── */
+.wa-orb {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 32px;
+  filter: blur(1px);
+  animation: wa-pulse 2.2s ease-in-out infinite, wa-spin 8s linear infinite;
+  flex-shrink: 0;
+}
+
+.wa-accent--blue .wa-orb,
+.wa-orb.wa-accent--blue {
+  background: conic-gradient(from 0deg, #1d4ed8, #60a5fa, #2563eb, #93c5fd, #1d4ed8);
+  box-shadow: 0 0 60px rgba(29, 78, 216, 0.35), 0 0 120px rgba(29, 78, 216, 0.15);
+}
+
+.wa-accent--green .wa-orb,
+.wa-orb.wa-accent--green {
+  background: conic-gradient(from 0deg, #059669, #34d399, #10b981, #6ee7b7, #059669);
+  box-shadow: 0 0 60px rgba(5, 150, 105, 0.35), 0 0 120px rgba(5, 150, 105, 0.15);
+}
+
+.wa-accent--purple .wa-orb,
+.wa-orb.wa-accent--purple {
+  background: conic-gradient(from 0deg, #7c3aed, #a78bfa, #8b5cf6, #c4b5fd, #7c3aed);
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.35), 0 0 120px rgba(124, 58, 237, 0.15);
+}
+
+@keyframes wa-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes wa-spin {
+  to { rotate: 360deg; }
+}
+
+/* ── Progress label ── */
+.wa-progress {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 20px;
+  min-width: 140px;
+}
+
+.wa-progress.wa-accent--blue  { color: #2563eb; }
+.wa-progress.wa-accent--green { color: #059669; }
+.wa-progress.wa-accent--purple { color: #7c3aed; }
+
+/* ── Typewriter message ── */
+.wa-message-area {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  padding: 0 16px;
+  max-width: 520px;
+}
+
+.wa-message {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  color: var(--dv-dark, #1a1a2e);
+  line-height: 1.5;
+  position: relative;
+  text-decoration: none;
+  background-size: 200% auto;
+  transition: all 0.5s ease;
+}
+
+/* Blinking cursor */
+.wa-cursor {
+  font-weight: 300;
+  color: var(--dv-gray-400, #94a3b8);
+  animation: wa-blink 0.6s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes wa-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* Strikethrough phase — gradient line slashes through */
+.wa-message--strike {
+  text-decoration: line-through;
+  text-decoration-thickness: 2.5px;
+  text-decoration-color: #e74c3c;
+  color: var(--dv-gray-400, #94a3b8);
+  transition: color 0.3s ease, text-decoration-color 0.2s ease;
+}
+
+/* Fade out phase */
+.wa-message--fade {
+  opacity: 0;
+  transform: translateY(-8px);
+  filter: blur(2px);
+  transition: all 0.35s ease;
+}
+
+/* ── Bottom hint ── */
+.wa-hint {
+  font-size: 0.78rem;
+  color: var(--dv-gray-400, #94a3b8);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  animation: wa-fade-in 1s ease 0.5s both;
+}
+
+/* ── Full-page overlay variant (for Solver / Grader) ── */
+.wa-overlay-full {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Inline variant (for CourseOutline form replacement) ── */
+.wa-inline {
+  padding: 64px 24px;
+  min-height: 420px;
+}
+
+/* ── Mobile tweaks ── */
+@media (max-width: 640px) {
+  .wa-orb {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 24px;
+  }
+
+  .wa-message-area {
+    min-height: 48px;
+    padding: 0 12px;
+  }
+
+  .wa-container {
+    padding: 36px 16px;
+    min-height: 280px;
+  }
+}

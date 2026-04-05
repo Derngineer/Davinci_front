@@ -27,66 +27,105 @@
   font-size: 0.95rem;
 }
 
-/* ── Solver hero card ─────────────────────────────────────── */
-.solver-hero-card {
-  display: flex;
-  align-items: center;
+/* ── Feature action cards grid ─────────────────────────────── */
+.dash-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--sp-4);
-  background: linear-gradient(135deg, var(--dv-blue), var(--dv-blue-dark));
-  border-radius: var(--radius-lg);
-  padding: var(--sp-5) var(--sp-5);
   margin-bottom: var(--sp-6);
-  color: var(--dv-white);
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-  animation: fadeInUp 0.5s var(--ease) 0.08s both;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
+}
+
+.dash-action-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--sp-5);
+  border-radius: var(--radius-lg);
+  color: #fff;
   text-decoration: none;
+  transition: all var(--dur) var(--ease);
+  animation: fadeInUp 0.5s var(--ease) both;
+  overflow: hidden;
 }
 
-.solver-hero-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37, 99, 235, 0.35);
+.dash-action-card:nth-child(2) { animation-delay: 0.06s; }
+.dash-action-card:nth-child(3) { animation-delay: 0.12s; }
+
+.dash-action-card:hover {
+  transform: translateY(-3px);
 }
 
-.solver-hero-icon {
-  width: 56px;
-  height: 56px;
+/* ── Color variants ── */
+.dash-action--solve {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 4px 20px rgba(29, 78, 216, 0.3);
+}
+.dash-action--solve:hover {
+  box-shadow: 0 8px 30px rgba(29, 78, 216, 0.4);
+}
+
+.dash-action--grade {
+  background: linear-gradient(135deg, #059669, #10b981);
+  box-shadow: 0 4px 20px rgba(5, 150, 105, 0.3);
+}
+.dash-action--grade:hover {
+  box-shadow: 0 8px 30px rgba(5, 150, 105, 0.4);
+}
+
+.dash-action--outline {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+}
+.dash-action--outline:hover {
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+}
+
+/* ── Card inner elements ── */
+.dash-action-icon {
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  margin-bottom: var(--sp-3);
 }
 
-.solver-hero-text {
+.dash-action-card h3 {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.dash-action-card p {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--sp-3);
   flex: 1;
 }
 
-.solver-hero-text h2 {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
+.dash-action-arrow {
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 4px;
-  color: var(--dv-white);
-}
-
-.solver-hero-text p {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-}
-
-.solver-hero-arrow {
-  flex-shrink: 0;
   color: rgba(255, 255, 255, 0.7);
-  transition: transform var(--dur-fast);
+  transition: transform var(--dur-fast), color var(--dur-fast);
 }
 
-.solver-hero-card:hover .solver-hero-arrow {
+.dash-action-card:hover .dash-action-arrow {
   transform: translateX(4px);
-  color: var(--dv-white);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .dash-actions-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
 }
 
 /* ── Stats grid ───────────────────────────────────────────── */

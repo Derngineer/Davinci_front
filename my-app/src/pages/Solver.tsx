@@ -8,6 +8,7 @@ import BrandLogo from '../components/BrandLogo';
 import AuthPromptModal from '../components/AuthPromptModal';
 import { useAuth } from '../context/useAuth';
 import { useGuestQuery } from '../hooks/useGuestQuery';
+import WaitingAnimation from '../components/WaitingAnimation';
 import './Solver.css';
 
 type Stage = 'camera' | 'preview' | 'cropping' | 'processing' | 'solution';
@@ -338,10 +339,8 @@ export default function Solver() {
 
       {/* ── Processing overlay ───────────────────────────── */}
       {stage === 'processing' && (
-        <div className="processing-overlay">
-          <div className="processing-spinner" />
-          <span className="processing-text">Cooking...</span>
-          <span className="processing-subtext">Preparing your step-by-step solution</span>
+        <div className="wa-overlay-full">
+          <WaitingAnimation mode="solving" />
         </div>
       )}
 

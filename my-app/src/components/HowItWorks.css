@@ -3,18 +3,60 @@
   background: var(--dv-gray-50);
 }
 
-.steps-row {
+/* ── Horizontal layout: image left, content right ── */
+.how-inner {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--sp-4);
+  align-items: center;
+  gap: 40px;
+}
+
+.how-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.how-title {
+  font-family: var(--font-sans);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--dv-dark);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--sp-2);
+}
+
+.how-subtitle {
+  color: var(--dv-gray-500);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-bottom: var(--sp-5);
+}
+
+/* ── Steps: vertical list with inline number + gradient connectors ── */
+.steps-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .step {
-  text-align: center;
-  flex: 1;
-  max-width: 280px;
-  padding: var(--sp-5) var(--sp-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  position: relative;
+  padding-bottom: var(--sp-4);
+}
+
+/* Gradient connector line between step circles */
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 19px;            /* center of 40px circle */
+  top: 44px;             /* just below the circle */
+  bottom: 0;
+  width: 2.5px;
+  background: linear-gradient(180deg, #0d6efd, #7c3aed);
+  border-radius: 2px;
 }
 
 .step-num {
@@ -23,44 +65,51 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: var(--dv-dark);
+  min-width: 40px;
+  background: linear-gradient(135deg, #0d6efd, #7c3aed);
   color: #fff;
   font-weight: 800;
   font-size: 1rem;
   border-radius: 50%;
-  margin-bottom: var(--sp-3);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
 }
 
-.step h3 {
+.step-text h3 {
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--dv-dark);
-  margin-bottom: var(--sp-2);
+  margin-bottom: 4px;
 }
 
-.step p {
+.step-text p {
   color: var(--dv-gray-500);
   font-size: 0.93rem;
   line-height: 1.65;
 }
 
-.step-divider {
-  width: 48px;
-  height: 2px;
-  background: var(--dv-gray-300);
-  margin-top: 56px;
-  flex-shrink: 0;
-  border-radius: 1px;
+/* ── Image ── */
+.how-image-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
 }
 
+.how-image {
+  width: 100%;
+  max-width: 580px;
+}
+
+/* ── Mobile ── */
 @media (max-width: 768px) {
-  .steps-row {
+  .how-inner {
     flex-direction: column;
-    align-items: center;
+    gap: 36px;
   }
-  .step-divider {
-    width: 2px;
-    height: 32px;
-    margin-top: 0;
+
+  .how-image {
+    max-width: 100%;
   }
 }

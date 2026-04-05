@@ -5,6 +5,7 @@ import GradeResult from '../components/GradeResult';
 import AuthPromptModal from '../components/AuthPromptModal';
 import { useAuth } from '../context/useAuth';
 import { useGuestQuery } from '../hooks/useGuestQuery';
+import WaitingAnimation from '../components/WaitingAnimation';
 import './Grader.css';
 
 type Stage = 'upload' | 'processing' | 'result';
@@ -47,7 +48,6 @@ export default function Grader() {
   const [gradeData, setGradeData] = useState<GradeData | null>(() => restoreSession().gradeData);
   const [error,     setError]     = useState('');
   const [dragOver,  setDragOver]  = useState(false);
-  const [fileName,  setFileName]  = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Persist grading result to sessionStorage whenever it changes
@@ -68,7 +68,6 @@ export default function Grader() {
 
   async function processFile(file: File) {
     if (!checkGuestQuota()) return;
-    setFileName(file.name);
     setError('');
     setStage('processing');
     try {
@@ -102,7 +101,6 @@ export default function Grader() {
 
   const resetToUpload = () => {
     setGradeData(null);
-    setFileName('');
     setError('');
     setStage('upload');
   };
@@ -199,12 +197,7 @@ export default function Grader() {
       {/* ── Processing ───────────────────────────────────── */}
       {stage === 'processing' && (
         <div className="grader-processing">
-          <div className="grader-spinner" />
-          <p className="grader-processing-title">Grading your work…</p>
-          <p className="grader-processing-sub">
-            {fileName && <><strong>{fileName}</strong><br /></>}
-            Analysing against marking criteria
-          </p>
+          <WaitingAnimation mode="grading" />
         </div>
       )}
 

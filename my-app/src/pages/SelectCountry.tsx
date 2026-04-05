@@ -53,7 +53,7 @@ export default function SelectCountry() {
       await setCountry(selected);
       // Refresh the user profile in context so country is up-to-date
       await refreshUser();
-      navigate('/solve', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch {
       setError('Failed to save country. Please try again.');
     } finally {

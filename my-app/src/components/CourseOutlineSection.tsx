@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import courseOutlineImg from '../assets/courseoutline.png';
+import courseOutlineImg from '../assets/courseoutline.svg';
 import './CourseOutlineSection.css';
 
 export default function CourseOutlineSection() {
