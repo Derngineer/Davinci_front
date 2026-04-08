@@ -1,21 +1,27 @@
 /* ── Solution Card ──────────────────────────────────────── */
+/* Mirrors GradeResult's centered-narrow layout (max-width: 620px) */
 .solution-card {
-  background: var(--dv-white);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 8px 40px rgba(13, 110, 253, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+  font-family: var(--font-sans);
+  background: var(--dv-off-white);
+  color: var(--dv-dark);
+  max-width: 620px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 40px;
   animation: slideUp 0.45s var(--ease) both;
-  overflow: hidden;
-  border: 1px solid var(--dv-gray-200);
 }
 
-/* ── Header ───────────────────────────────────────────────── */
+/* ── Header — sticky top bar like GradeResult ────────────── */
 .solution-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--sp-3) var(--sp-4);
-  background: linear-gradient(135deg, var(--dv-blue) 0%, #3d8bfd 100%);
-  color: var(--dv-white);
+  padding: 16px 20px 14px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  border-bottom: 1px solid var(--dv-gray-200);
 }
 
 .solution-header-left {
@@ -25,52 +31,80 @@
 }
 
 .solution-icon {
-  opacity: 0.85;
+  color: #0d6efd;
   flex-shrink: 0;
 }
 
 .solution-title {
   font-family: var(--font-sans);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0d6efd;
 }
 
 .solution-close {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--dv-white);
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-full);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--dv-gray-200);
+  background: var(--dv-gray-50);
+  color: var(--dv-gray-500);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--dur-fast);
-  flex-shrink: 0;
   cursor: pointer;
-  border: none;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
 }
 
 .solution-close:hover {
-  background: rgba(255, 255, 255, 0.3);
+  border-color: #0d6efd;
+  color: #0d6efd;
 }
 
 /* ── Body ─────────────────────────────────────────────────── */
 .solution-body {
-  padding: var(--sp-4);
-  font-size: 0.95rem;
+  background: #fff;
+  border: 1px solid var(--dv-gray-200);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 16px 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  font-size: 0.92rem;
   line-height: 1.8;
-  color: var(--dv-gray-700);
-  overflow-x: auto;
+  color: var(--dv-gray-600);
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .solution-body h1,
 .solution-body h2,
 .solution-body h3 {
-  color: var(--dv-gray-800);
-  margin: var(--sp-4) 0 var(--sp-2);
+  color: var(--dv-dark);
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.solution-body h1 {
+  font-size: 1.15rem;
+  margin: 28px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--dv-gray-100);
+}
+
+.solution-body h2 {
+  font-size: 1.02rem;
+  margin: 24px 0 10px;
+  color: #0d6efd;
+}
+
+.solution-body h3 {
+  font-size: 0.92rem;
+  margin: 20px 0 8px;
 }
 
 .solution-body h1:first-child,
@@ -79,80 +113,80 @@
   margin-top: 0;
 }
 
-.solution-body h1 { font-size: 1.25rem; }
-.solution-body h2 { font-size: 1.1rem; }
-.solution-body h3 { font-size: 1rem; }
-
 .solution-body p {
-  margin-bottom: var(--sp-2);
+  margin-bottom: 10px;
 }
 
 .solution-body strong,
 .solution-body b {
-  color: var(--dv-gray-800);
-  font-weight: 600;
+  color: var(--dv-dark);
+  font-weight: 700;
 }
 
 .solution-body hr {
   border: none;
-  border-top: 1px solid var(--dv-gray-200);
-  margin: var(--sp-3) 0;
+  border-top: 1px solid var(--dv-gray-100);
+  margin: 20px 0;
 }
 
 /* ── Tables ───────────────────────────────────────────────── */
 .solution-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: var(--sp-3) 0;
-  font-size: 0.9rem;
-}
-
-.solution-body th {
-  background: var(--dv-blue-light);
-  color: var(--dv-blue-dark);
-  font-weight: 600;
-  text-align: left;
-  padding: var(--sp-2) var(--sp-3);
+  margin: 16px 0;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  overflow: hidden;
   border: 1px solid var(--dv-gray-200);
 }
 
+.solution-body th {
+  background: rgba(13, 110, 253, 0.06);
+  color: #0d6efd;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid var(--dv-gray-200);
+  font-size: 0.8rem;
+}
+
 .solution-body td {
-  padding: var(--sp-2) var(--sp-3);
+  padding: 10px 14px;
   border: 1px solid var(--dv-gray-200);
 }
 
 /* ── KaTeX / math ─────────────────────────────────────────── */
 .solution-body .katex-display {
-  margin: var(--sp-3) 0;
+  margin: 16px 0;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: var(--sp-3);
+  padding: 14px 16px;
   background: var(--dv-gray-50);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--dv-blue);
+  border-radius: 10px;
+  border-left: 3px solid #0d6efd;
 }
 
 .solution-body .katex {
-  font-size: 1.1em;
+  font-size: 1.05em;
 }
 
 /* ── Code blocks ──────────────────────────────────────────── */
 .solution-body pre {
   background: var(--dv-gray-50);
   border: 1px solid var(--dv-gray-200);
-  border-radius: var(--radius-md);
-  padding: var(--sp-3);
+  border-radius: 10px;
+  padding: 14px 16px;
   overflow-x: auto;
-  font-size: 0.88rem;
-  margin: var(--sp-3) 0;
+  font-size: 0.84rem;
+  margin: 16px 0;
 }
 
 .solution-body code {
-  background: var(--dv-blue-light);
-  color: var(--dv-blue-dark);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.88em;
+  background: rgba(13, 110, 253, 0.06);
+  color: #0d6efd;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 0.85em;
 }
 
 .solution-body pre code {
@@ -164,26 +198,29 @@
 /* ── Lists ────────────────────────────────────────────────── */
 .solution-body ol,
 .solution-body ul {
-  padding-left: var(--sp-4);
-  margin-bottom: var(--sp-2);
+  padding-left: 20px;
+  margin-bottom: 12px;
 }
 
 .solution-body li {
-  margin-bottom: var(--sp-1);
+  margin-bottom: 6px;
+  padding-left: 4px;
 }
 
 .solution-body li::marker {
-  color: var(--dv-blue);
+  color: #0d6efd;
+  font-weight: 700;
 }
 
 /* ── Blockquotes ──────────────────────────────────────────── */
 .solution-body blockquote {
-  border-left: 3px solid var(--dv-blue);
-  margin: var(--sp-3) 0;
-  padding: var(--sp-2) var(--sp-3);
+  border-left: 3px solid #0d6efd;
+  margin: 16px 0;
+  padding: 12px 16px;
   color: var(--dv-gray-600);
   background: var(--dv-gray-50);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.9rem;
 }
 
 /* ── Footer ───────────────────────────────────────────────── */
@@ -192,11 +229,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 var(--sp-4);
-  padding: 10px var(--sp-3);
+  margin: 0 16px 12px;
+  padding: 12px 16px;
   background: #fef9ee;
   border: 1px solid #fde68a;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   font-size: 0.78rem;
   line-height: 1.4;
   color: #92400e;
@@ -211,9 +248,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--sp-3) var(--sp-4);
-  border-top: 1px solid var(--dv-gray-200);
-  background: var(--dv-gray-50);
+  padding: 0 16px;
+  margin-top: 4px;
 }
 
 .solution-remaining {
@@ -226,26 +262,30 @@
 }
 
 .solution-remaining svg {
-  color: var(--dv-blue);
+  color: #0d6efd;
   opacity: 0.7;
 }
 
 .solution-new-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: none;
+  border: 1.5px solid var(--dv-gray-300);
+  border-radius: 999px;
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--dv-blue);
-  background: var(--dv-blue-light);
-  border: none;
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
+  color: var(--dv-gray-600);
   cursor: pointer;
-  transition: all var(--dur-fast);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  margin-top: 12px;
 }
 
 .solution-new-btn:hover {
-  background: var(--dv-blue);
-  color: var(--dv-white);
+  border-color: #0d6efd;
+  color: #0d6efd;
+  background: rgba(13, 110, 253, 0.04);
 }
 
 /* ── Animation ────────────────────────────────────────────── */
@@ -265,13 +305,25 @@
    Amber / gold colour scheme for document grading mode
    ══════════════════════════════════════════════════════════════ */
 
-.solution-card--grading {
-  box-shadow: 0 8px 40px rgba(217, 119, 6, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+.solution-card--grading .solution-title {
+  color: #d97706;
+}
+
+.solution-card--grading .solution-icon {
+  color: #d97706;
+}
+
+.solution-card--grading .solution-close:hover {
+  border-color: #d97706;
+  color: #d97706;
+}
+
+.solution-card--grading .solution-body {
   border-color: #fde68a;
 }
 
-.solution-card--grading .solution-header {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+.solution-card--grading .solution-body h2 {
+  color: #d97706;
 }
 
 .solution-card--grading .solution-body .katex-display {
@@ -300,12 +352,27 @@
   color: #d97706;
 }
 
-.solution-card--grading .solution-new-btn {
+.solution-card--grading .solution-new-btn:hover {
+  border-color: #d97706;
   color: #d97706;
-  background: #fef3c7;
+  background: rgba(217, 119, 6, 0.04);
 }
 
-.solution-card--grading .solution-new-btn:hover {
-  background: #d97706;
-  color: var(--dv-white);
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .solution-body {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 18px 16px;
+  }
+
+  .solution-footer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .solution-ai-disclaimer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

@@ -291,8 +291,8 @@
   z-index: 20;
   overflow-y: auto;
   animation: fadeIn 0.3s var(--ease);
-  padding: var(--sp-4);
-  padding-top: 80px;
+  padding: 0;
+  padding-top: 72px;
 }
 
 /* ── Preview image ────────────────────────────────────────── */
